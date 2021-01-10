@@ -1,0 +1,1 @@
+web: gunicorn COVID-19_US_County_Map:server
