@@ -70,7 +70,6 @@ app.layout = html.Div([
     [Input('sds', 'value'), Input('clusterNum', 'value')])
 
 def clusters(sds, clusterNum):
-
     filtered_df = df2.query("state == @sds")
     cluster_df = filtered_df.pivot(
         index = 'county', 
@@ -87,7 +86,7 @@ def clusters(sds, clusterNum):
     latest_cases_and_deaths = filtered_df.loc[filtered_df.date == latest_date]
     latest_cases_and_deaths = latest_cases_and_deaths.sort_values('county')
     #print(latest_cases_and_deaths)
-    latest_cases_and_deaths['Cluster'] = cluster_labels.astype('string')
+    latest_cases_and_deaths['Cluster'] = cluster_labels.astype(str)
     fig = px.scatter(
         latest_cases_and_deaths, 
         x = 'cases', y = 'deaths', color = 'Cluster', 
@@ -99,7 +98,6 @@ def clusters(sds, clusterNum):
     cluster_label_df = pd.DataFrame({'cluster' : cluster_labels}, index = cluster_df.index)
     data_with_cluster = filtered_df.merge(cluster_label_df, 'left', left_on = 'county', right_index = True)
     daily_data_with_cluster = data_with_cluster.groupby(["date", "cluster"], as_index = False).agg({"daily_cases": "sum"})
-    print(daily_data_with_cluster)
     trend_fig = px.line(
         daily_data_with_cluster, x = 'date', y = 'daily_cases',
         color = 'cluster', line_group = 'cluster'
