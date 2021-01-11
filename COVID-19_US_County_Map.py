@@ -26,7 +26,7 @@ available_indicators1 = ["Maryland", "Virginia", "Pennsylvania",
 available_indicators2 = range(2, 16)
 #available_indicators2 = df3['ClusterNum'].unique()
 
-df2 = pd.read_csv('./daily_cases_data.csv')
+df2 = pd.read_csv('/Users/shivaninanda/Desktop/COVID_Grapher/daily_cases_data.csv')
 
 app.title = 'COVID-19 Clustering App'
 
@@ -142,4 +142,4 @@ def update_figure(sds):
     return fig
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server()
